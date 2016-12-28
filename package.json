@@ -8,6 +8,9 @@
     "test:check-style": "./node_modules/.bin/eslint index.js",
     "pretest": "npm run test:check-style"
   },
+  "pre-commit": [
+    "test"
+  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/itavy/mq-router.git"
