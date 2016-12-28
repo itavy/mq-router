@@ -1,0 +1,27 @@
+{
+  "name": "mq-router",
+  "version": "0.0.0",
+  "description": "MQ Router",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 0",
+    "test:check-style": "./node_modules/.bin/eslint index.js",
+    "pretest": "npm run test:check-style"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/itavy/mq-router.git"
+  },
+  "author": "Octavian Ionescu <itavyg@gmail.com>",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/itavy/mq-router#readme",
+  "devDependencies": {
+    "eslint": "^3.12.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0",
+    "pre-commit": "^1.2.2",
+    "tap": "^8.0.1"
+  }
+}
