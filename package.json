@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "exit 0",
-    "test:check-style": "./node_modules/.bin/eslint index.js",
+    "test:check-style": "./node_modules/.bin/eslint index.js lib/*",
     "pretest": "npm run test:check-style"
   },
   "pre-commit": [
@@ -26,5 +26,8 @@
     "eslint-plugin-react": "^6.8.0",
     "pre-commit": "^1.2.2",
     "tap": "^8.0.1"
+  },
+  "dependencies": {
+    "verror": "^1.9.0"
   }
 }
