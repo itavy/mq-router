@@ -1,5 +1,3 @@
-const mq = `mq-router: ${process.version}`;
+'use strict';
 
-module.exports = {
-  mq,
-};
+module.exports = require('./lib');
