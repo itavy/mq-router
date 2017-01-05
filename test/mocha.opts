@@ -1,0 +1,4 @@
+-u exports
+-R spec
+./test/index.js
+-t 3000
