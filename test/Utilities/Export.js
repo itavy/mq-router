@@ -25,3 +25,10 @@ it('MQUtils should have expected definition', (done) => {
   ].map(el => expect(utils.MQUtils).to.have.property(el));
   done();
 });
+
+it('Should export same instance', (done) => {
+  const utils1 = utils.getUtilities();
+  const utils2 = utils.getUtilities();
+  expect(utils1).to.be.equal(utils2);
+  done();
+});
