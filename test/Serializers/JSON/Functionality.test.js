@@ -11,16 +11,10 @@ const fixtures = require('./Fixtures');
 const expect = chai.expect;
 
 it('Should return an instance Uint8Array', (done) => {
-  testSerializer.serialize({
-    msgId:     'tesmsgId',
-    timestamp: 123456789,
-    replyTo:   'replyId',
-    replyOn:   'msgreply',
-    message:   Uint8Array.from('test message'),
-  })
+  testSerializer.serialize(fixtures.msgToSerialize)
     .should.be.fulfilled
     .then((resp) => {
-      expect(resp).to.be.eql(fixtures.expectedSerialize);
+      expect(resp).to.be.eql(fixtures.expectedMsgSerialized);
       return Promise.resolve();
     })
     .then(() => done())
@@ -28,15 +22,35 @@ it('Should return an instance Uint8Array', (done) => {
 });
 
 it('Should return an expected error', (done) => {
-  testSerializer.serialize({
-    msgId:     'tesmsgId',
-    timestamp: 123456789,
-    replyTo:   'replyId',
-    message:   null,
-  })
+  testSerializer.serialize(fixtures.failMsgToSerialize)
     .should.be.rejected
     .then((resp) => {
       expect(resp.name).to.be.equal('MQ_SERIALIZE_ERROR');
+      expect(resp.cause().message).to.be.equal('Cannot convert undefined or null to object');
+      return Promise.resolve();
+    })
+    .then(() => done())
+    .catch(err => done(err));
+});
+
+it('should return expected unserialized message', (done) => {
+  testSerializer.unserialize(fixtures.msgToUnserialize)
+  .should.be.fulfilled
+  .then((resp) => {
+    expect(resp).to.be.eql(fixtures.expectedMsgUnserialized);
+    return Promise.resolve();
+  })
+  .then(() => done())
+  .catch(err => done(err));
+});
+
+
+it('Should return an expected error', (done) => {
+  testSerializer.unserialize(fixtures.failMsgToUnserialize)
+    .should.be.rejected
+    .then((resp) => {
+      expect(resp.name).to.be.equal('MQ_UNSERIALIZE_ERROR');
+      expect(resp.cause().message).to.be.equal('Unexpected end of JSON input');
       return Promise.resolve();
     })
     .then(() => done())
