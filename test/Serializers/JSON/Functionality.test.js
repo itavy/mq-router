@@ -1,14 +1,12 @@
 'use strict';
 
-const chai = require('../../chaiHelp').chaiAsPromised();
+const expect = require('../../testHelpers').getExpect();
 const utils = require('../../../lib/utilities').getUtilities();
 const testSerializer = require('../../../lib/Serializers/JSONSerializer').getSerializer({
   moduleName: 'testing',
   utils,
 });
 const fixtures = require('./Fixtures');
-
-const expect = chai.expect;
 
 it('Should return an instance Uint8Array', (done) => {
   testSerializer.serialize(fixtures.msgToSerialize)

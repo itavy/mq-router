@@ -1,9 +1,7 @@
 'use strict';
 
-const chai = require('chai');
+const expect = require('../testHelpers').getExpect();
 const utils = require('../../lib/utilities');
-
-const expect = chai.expect;
 
 it('Should return a di for the rules provided', (done) => {
   const defaultValue1 = 'dEfAuLtVaLuE';

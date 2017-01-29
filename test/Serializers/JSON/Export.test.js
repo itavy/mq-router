@@ -1,10 +1,8 @@
 'use strict';
 
-const chai = require('chai');
+const expect = require('../../testHelpers').getExpect();
 const utils = require('../../../lib/utilities').getUtilities();
 const jsonSerializeLib = require('../../../lib/Serializers/JSONSerializer');
-
-const expect = chai.expect;
 
 it('Should export required info', (done) => {
   expect(Object.keys(jsonSerializeLib).length).to.equal(2);

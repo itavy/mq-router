@@ -1,9 +1,7 @@
 'use strict';
 
-const chai = require('chai');
+const expect = require('../testHelpers').getExpect();
 const utils = require('../../lib/utilities');
-
-const expect = chai.expect;
 
 it('Should return an Uint8Array instance', (done) => {
   const strToUint8 = utils.MQUtils.stringToUint8Array('testString');

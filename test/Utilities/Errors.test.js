@@ -1,9 +1,8 @@
 'use strict';
 
-const chai = require('chai');
+const expect = require('../testHelpers').getExpect();
 const utils = require('../../lib/utilities');
 
-const expect = chai.expect;
 
 const verror = require('verror');
 
