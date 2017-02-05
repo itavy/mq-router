@@ -54,7 +54,7 @@ it('should return expected error', (done) => {
   testConnector.connect()
     .should.be.rejected
     .then((errorConnect) => {
-      expect(errorConnect.name).to.be.equal('MQ_CONNECT_ERROR');
+      expect(errorConnect.name).to.be.equal('MQ_RABBITMQ_CONNECT_ERROR');
       expect(errorConnect.cause()).to.be.equal(fixtures.genericMqError);
       return Promise.resolve();
     })

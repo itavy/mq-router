@@ -4,12 +4,19 @@ const moduleName = 'rabbitMqTestingModule';
 
 const mqConnUri = 'amqp://user:pass@host:port/vhost?heartbeat=30';
 
+const subscribedQueue = {
+  queue: 'sUbScrIBEDQueUEName',
+};
+
+const subscribedRoutingKey = 's.q.routing.key';
+
 const mqChannel = {
   prefetch:       () => Promise.resolve(),
   assertExchange: () => Promise.resolve(),
+  assertQueue:    () => Promise.resolve(subscribedQueue),
+  bindQueue:      () => Promise.resolve(),
   publish:        () => null,
   consume:        () => null,
-  bindQueue:      () => null,
 };
 
 const mqConnection = {
@@ -26,6 +33,14 @@ const exchangeOptions = {
   autoDelete: true,
 };
 
+const queueParameters = {
+  exclusive:  true,
+  durable:    true,
+  autoDelete: false,
+};
+
+const queueName = 'tEsTiNgQuEuEnAmE';
+
 const publishTTL = 5000;
 
 const genericMqError = Error('testing');
@@ -40,4 +55,8 @@ module.exports = {
   publishTTL,
   moduleName,
   genericMqError,
+  queueParameters,
+  queueName,
+  subscribedQueue,
+  subscribedRoutingKey,
 };

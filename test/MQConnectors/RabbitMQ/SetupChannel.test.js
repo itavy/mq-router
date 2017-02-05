@@ -39,6 +39,7 @@ it('should reject with expected error', (done) => {
   testConnector.setupChannel({})
     .should.be.rejected
     .then((errorCreateChannel) => {
+      expect(errorCreateChannel.name).to.be.equal('MQ_RABBITMQ_SETUP_CHANNEL_ERROR');
       expect(errorCreateChannel.cause()).to.be.equal(fixtures.genericMqError);
       return Promise.resolve();
     })
