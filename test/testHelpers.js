@@ -24,7 +24,7 @@ const sinonLibrary = require('sinon');
 
 // extend sinon wiht promise support
 // @see {@link https://github.com/bendrucker/sinon-as-promised}
-// require('sinon-as-promised');
+require('sinon-as-promised');
 
 /**
  * Sinon stubs/mocks/spies etc.

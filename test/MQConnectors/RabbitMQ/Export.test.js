@@ -13,10 +13,10 @@ it('Should export required info', (done) => {
   done();
 });
 
-it('Should return an instance of MQJSONSerializer', (done) => {
+it('Should return an instance of RabbitMQ connector', (done) => {
   const testConnector = rabbitMqLib.getConnector({
     moduleName:      fixtures.moduleName,
-    connURI:         fixtures.rabbitMQConnUri,
+    connURI:         fixtures.mqConnUri,
     mqLib:           fixtures.mqLib,
     exchangeName:    fixtures.exchangeName,
     exchangeOptions: fixtures.exchangeOptions,
@@ -30,7 +30,7 @@ it('Should return an instance of MQJSONSerializer', (done) => {
 it('Should have expected properties', (done) => {
   const testConnector = rabbitMqLib.getConnector({
     moduleName:      fixtures.moduleName,
-    connURI:         fixtures.rabbitMQConnUri,
+    connURI:         fixtures.mqConnUri,
     mqLib:           fixtures.mqLib,
     exchangeName:    fixtures.exchangeName,
     exchangeOptions: fixtures.exchangeOptions,

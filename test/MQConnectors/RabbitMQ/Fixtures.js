@@ -9,6 +9,7 @@ const createConfirmChannel = () => Promise.resolve({ // eslint-disable-line requ
   assertExchange: () => null,
   publish:        () => null,
   consume:        () => null,
+  bindQueue:      () => null,
 });
 
 const mqLib = {
@@ -25,6 +26,8 @@ const exchangeOptions = {
 
 const publishTTL = 5000;
 
+const genericMqError = Error('testing');
+
 module.exports = {
   mqConnUri,
   mqLib,
@@ -32,4 +35,5 @@ module.exports = {
   exchangeOptions,
   publishTTL,
   moduleName,
+  genericMqError,
 };
