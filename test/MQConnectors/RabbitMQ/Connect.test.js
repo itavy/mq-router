@@ -31,7 +31,7 @@ afterEach((done) => {
 });
 
 
-it('should call expected method from mqLib', (done) => {
+it('should call expected method from mqLib and set instance', (done) => {
   const connectSpy = sandbox.spy(testConnector.connection.mqLib, 'connect');
 
   testConnector.connect()
@@ -39,6 +39,7 @@ it('should call expected method from mqLib', (done) => {
     .then(() => {
       expect(connectSpy.callCount).to.be.equal(1);
       expect(connectSpy.getCall(0).args).to.be.eql([fixtures.mqConnUri]);
+      expect(testConnector.connection.instance).to.be.equal(fixtures.mqConnection);
       return Promise.resolve();
     })
     .then(done)
@@ -54,7 +55,7 @@ it('should return expected error', (done) => {
     .should.be.rejected
     .then((errorConnect) => {
       expect(errorConnect.name).to.be.equal('MQ_CONNECT_ERROR');
-      expect(errorConnect.cause()).to.be.eql(fixtures.genericMqError);
+      expect(errorConnect.cause()).to.be.equal(fixtures.genericMqError);
       return Promise.resolve();
     })
     .then(done)

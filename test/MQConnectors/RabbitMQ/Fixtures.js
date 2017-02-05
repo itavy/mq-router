@@ -4,18 +4,20 @@ const moduleName = 'rabbitMqTestingModule';
 
 const mqConnUri = 'amqp://user:pass@host:port/vhost?heartbeat=30';
 
-const createConfirmChannel = () => Promise.resolve({ // eslint-disable-line require-jsdoc
-  prefetch:       () => null,
-  assertExchange: () => null,
+const mqChannel = {
+  prefetch:       () => Promise.resolve(),
+  assertExchange: () => Promise.resolve(),
   publish:        () => null,
   consume:        () => null,
   bindQueue:      () => null,
-});
+};
+
+const mqConnection = {
+  createConfirmChannel: () => Promise.resolve(mqChannel), // eslint-disable-line require-jsdoc
+};
 
 const mqLib = {
-  connect: uri => Promise.resolve({ // eslint-disable-line no-unused-vars
-    createConfirmChannel,
-  }),
+  connect: uri => Promise.resolve(mqConnection), // eslint-disable-line no-unused-vars
 };
 
 const exchangeName = 'rabbitMqExchangeName';
@@ -30,6 +32,8 @@ const genericMqError = Error('testing');
 
 module.exports = {
   mqConnUri,
+  mqChannel,
+  mqConnection,
   mqLib,
   exchangeName,
   exchangeOptions,
