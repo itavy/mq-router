@@ -6,37 +6,42 @@ const rabbitMqLib = require('../../../lib/Connectors/RabbitMQ');
 const fixtures = require('./Fixtures');
 
 it('Should export required info', (done) => {
-  expect(Object.keys(rabbitMqLib).length).to.equal(2);
-  expect(rabbitMqLib).to.have.property('getConnector');
+  expect(Object.keys(rabbitMqLib).length).to.equal(1);
   expect(rabbitMqLib).to.have.property('RabbitMQ');
 
   done();
 });
 
 it('Should return an instance of RabbitMQ connector', (done) => {
-  const testConnector = rabbitMqLib.getConnector({
-    moduleName:      fixtures.moduleName,
-    connURI:         fixtures.mqConnUri,
-    mqLib:           fixtures.mqLib,
-    exchangeName:    fixtures.exchangeName,
-    exchangeOptions: fixtures.exchangeOptions,
-    publishTTL:      fixtures.publishTTL,
-    utils,
-  });
+  const testConnector = Reflect.construct(
+    rabbitMqLib.RabbitMQ,
+    [
+      {
+        connURI:         fixtures.mqConnUri,
+        mqLib:           fixtures.mqLib,
+        exchangeName:    fixtures.exchangeName,
+        exchangeOptions: fixtures.exchangeOptions,
+        publishTTL:      fixtures.publishTTL,
+        utils,
+      },
+    ]);
   expect(testConnector).to.be.instanceof(rabbitMqLib.RabbitMQ);
   done();
 });
 
 it('Should have expected properties', (done) => {
-  const testConnector = rabbitMqLib.getConnector({
-    moduleName:      fixtures.moduleName,
-    connURI:         fixtures.mqConnUri,
-    mqLib:           fixtures.mqLib,
-    exchangeName:    fixtures.exchangeName,
-    exchangeOptions: fixtures.exchangeOptions,
-    publishTTL:      fixtures.publishTTL,
-    utils,
-  });
+  const testConnector = Reflect.construct(
+    rabbitMqLib.RabbitMQ,
+    [
+      {
+        connURI:         fixtures.mqConnUri,
+        mqLib:           fixtures.mqLib,
+        exchangeName:    fixtures.exchangeName,
+        exchangeOptions: fixtures.exchangeOptions,
+        publishTTL:      fixtures.publishTTL,
+        utils,
+      },
+    ]);
   [
     'connect',
     'setupSubscribe',

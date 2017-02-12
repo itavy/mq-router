@@ -1,7 +1,5 @@
 'use strict';
 
-const moduleName = 'rabbitMqTestingModule';
-
 const mqConnUri = 'amqp://user:pass@host:port/vhost?heartbeat=30';
 
 const subscribedQueue = {
@@ -53,7 +51,6 @@ module.exports = {
   exchangeName,
   exchangeOptions,
   publishTTL,
-  moduleName,
   genericMqError,
   queueParameters,
   queueName,

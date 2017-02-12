@@ -13,15 +13,18 @@ let testConnector = null;
 
 beforeEach((done) => {
   sandbox = sinon.sandbox.create();
-  testConnector = rabbitMqLib.getConnector({
-    moduleName:      fixtures.moduleName,
-    connURI:         fixtures.mqConnUri,
-    mqLib:           fixtures.mqLib,
-    exchangeName:    fixtures.exchangeName,
-    exchangeOptions: fixtures.exchangeOptions,
-    publishTTL:      fixtures.publishTTL,
-    utils,
-  });
+  testConnector = Reflect.construct(
+    rabbitMqLib.RabbitMQ,
+    [
+      {
+        connURI:         fixtures.mqConnUri,
+        mqLib:           fixtures.mqLib,
+        exchangeName:    fixtures.exchangeName,
+        exchangeOptions: fixtures.exchangeOptions,
+        publishTTL:      fixtures.publishTTL,
+        utils,
+      },
+    ]);
   done();
 });
 
