@@ -1,8 +1,9 @@
 'use strict';
 
-const expect = require('../../testHelpers').getExpect();
-const sinon = require('../../testHelpers').getSinon();
-const utils = require('../../../lib/utilities').getUtilities();
+const expect = require('@itavy/test-utilities').getExpect();
+const sinon = require('@itavy/test-utilities').getSinon();
+const utils = require('@itavy/utilities').getUtilities();
+
 const rabbitMqLib = require('../../../lib/Connectors/RabbitMQ');
 const fixtures = require('./Fixtures');
 
