@@ -5,6 +5,7 @@ const sinon = require('@itavy/test-utilities').getSinon();
 const utils = require('@itavy/utilities').getUtilities();
 
 const rabbitMqLib = require('../../../lib/Connectors/RabbitMQ');
+const errors = require('../../../lib/Errors');
 const fixtures = require('./Fixtures');
 
 let sandbox = null;
@@ -23,6 +24,7 @@ beforeEach((done) => {
         exchangeOptions: fixtures.exchangeOptions,
         publishTTL:      fixtures.publishTTL,
         utils,
+        errors,
       },
     ]);
   done();
@@ -58,7 +60,7 @@ it('should return expected error', (done) => {
   testConnector.connect()
     .should.be.rejected
     .then((errorConnect) => {
-      expect(errorConnect.name).to.be.equal('MQ_RABBITMQ_CONNECT_ERROR');
+      expect(errorConnect.name).to.be.equal(errors.MQ_RABBITMQ_CONNECT_ERROR.name);
       expect(errorConnect.cause()).to.be.equal(fixtures.genericMqError);
       return Promise.resolve();
     })

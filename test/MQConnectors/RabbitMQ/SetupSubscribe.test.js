@@ -3,7 +3,9 @@
 const expect = require('@itavy/test-utilities').getExpect();
 const sinon = require('@itavy/test-utilities').getSinon();
 const utils = require('@itavy/utilities').getUtilities();
+
 const rabbitMqLib = require('../../../lib/Connectors/RabbitMQ');
+const errors = require('../../../lib/Errors');
 const fixtures = require('./Fixtures');
 
 let sandbox = null;
@@ -22,6 +24,7 @@ beforeEach((done) => {
         exchangeOptions: fixtures.exchangeOptions,
         publishTTL:      fixtures.publishTTL,
         utils,
+        errors,
       },
     ]);
   testConnector.connect()
@@ -42,7 +45,7 @@ it('should reject with expected error', (done) => {
   testConnector.setupSubscribe({})
     .should.be.rejected
     .then((errSetupSubscribe) => {
-      expect(errSetupSubscribe.name).to.be.equal('MQ_RABBITMQ_SETUP_SUBSCRIBE_ERROR');
+      expect(errSetupSubscribe.name).to.be.equal(errors.MQ_RABBITMQ_SETUP_SUBSCRIBE_ERROR.name);
       expect(errSetupSubscribe.cause()).to.be.equal(fixtures.genericMqError);
       return Promise.resolve();
     })
@@ -58,7 +61,7 @@ it('should assert queue with default parameters', (done) => {
     .should.be.rejected
     .then((errSetupSubscribe) => {
       // ensure we receive our error and not from other source
-      expect(errSetupSubscribe.name).to.be.equal('MQ_RABBITMQ_SETUP_SUBSCRIBE_ERROR');
+      expect(errSetupSubscribe.name).to.be.equal(errors.MQ_RABBITMQ_SETUP_SUBSCRIBE_ERROR.name);
       expect(errSetupSubscribe.cause()).to.be.equal(fixtures.genericMqError);
       return Promise.resolve();
     })
@@ -84,7 +87,7 @@ it('should assert queue with provided parameters', (done) => {
     .should.be.rejected
     .then((errSetupSubscribe) => {
       // ensure we receive our error and not from other source
-      expect(errSetupSubscribe.name).to.be.equal('MQ_RABBITMQ_SETUP_SUBSCRIBE_ERROR');
+      expect(errSetupSubscribe.name).to.be.equal(errors.MQ_RABBITMQ_SETUP_SUBSCRIBE_ERROR.name);
       expect(errSetupSubscribe.cause()).to.be.equal(fixtures.genericMqError);
       return Promise.resolve();
     })
@@ -109,7 +112,7 @@ it('should bind the queue to provided routing key', (done) => {
     .should.be.rejected
     .then((errSetupSubscribe) => {
       // ensure we receive our error and not from other source
-      expect(errSetupSubscribe.name).to.be.equal('MQ_RABBITMQ_SETUP_SUBSCRIBE_ERROR');
+      expect(errSetupSubscribe.name).to.be.equal(errors.MQ_RABBITMQ_SETUP_SUBSCRIBE_ERROR.name);
       expect(errSetupSubscribe.cause()).to.be.equal(fixtures.genericMqError);
       return Promise.resolve();
     })

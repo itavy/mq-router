@@ -4,6 +4,7 @@ const expect = require('@itavy/test-utilities').getExpect();
 const sinon = require('@itavy/test-utilities').getSinon();
 const utils = require('@itavy/utilities').getUtilities();
 const rabbitMqLib = require('../../../lib/Connectors/RabbitMQ');
+const errors = require('../../../lib/Errors');
 const fixtures = require('./Fixtures');
 
 let sandbox = null;
@@ -22,6 +23,7 @@ beforeEach((done) => {
         exchangeOptions: fixtures.exchangeOptions,
         publishTTL:      fixtures.publishTTL,
         utils,
+        errors,
       },
     ]);
   testConnector.connect()
@@ -42,7 +44,7 @@ it('should reject with expected error', (done) => {
   testConnector.setupChannel({})
     .should.be.rejected
     .then((errorCreateChannel) => {
-      expect(errorCreateChannel.name).to.be.equal('MQ_RABBITMQ_SETUP_CHANNEL_ERROR');
+      expect(errorCreateChannel.name).to.be.equal(errors.MQ_RABBITMQ_SETUP_CHANNEL_ERROR.name);
       expect(errorCreateChannel.cause()).to.be.equal(fixtures.genericMqError);
       return Promise.resolve();
     })
