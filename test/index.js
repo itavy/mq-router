@@ -1,5 +1,8 @@
 'use strict';
 
 describe('MQ Router Tests', () => {
-  describe('MQConnectors', () => require('./MQConnectors')); // eslint-disable-line global-require
+  // eslint-disable-next-line global-require
+  describe('MQConnectors', () => require('./MQConnectors'));
+  // eslint-disable-next-line global-require
+  describe('Serializers', () => require('./Serializers'));
 });
