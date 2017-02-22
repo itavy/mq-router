@@ -119,7 +119,7 @@ it('should bind the queue to provided routing key', (done) => {
     .then(() => {
       expect(bindQueue.callCount).to.be.equal(1);
       expect(bindQueue.getCall(0).args[0]).to.be.eql(fixtures.subscribedQueue.queue);
-      expect(bindQueue.getCall(0).args[1]).to.be.eql(testConnector.connection.exchangeName);
+      expect(bindQueue.getCall(0).args[1]).to.be.eql(testConnector.connection.exchange.name);
       expect(bindQueue.getCall(0).args[2]).to.be.eql(fixtures.subscribedRoutingKey);
       return Promise.resolve();
     })

@@ -88,9 +88,9 @@ it('Should assert exchange existance and return created channel ', (done) => {
     .then((ch) => {
       expect(assertExchangeSpy.callCount).to.be.equal(1);
       expect(assertExchangeSpy.getCall(0).args).to.be.eql([
-        testConnector.connection.exchangeName,
+        testConnector.connection.exchange.name,
         'topic',
-        testConnector.connection.exchangeOptions,
+        testConnector.connection.exchange.options,
       ]);
       expect(ch).to.be.equal(fixtures.mqChannel);
       return Promise.resolve();
