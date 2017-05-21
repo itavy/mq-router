@@ -22,7 +22,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/itavy/mq-router#readme",
   "devDependencies": {
-    "@itavy/test-utilities": "^1.0.0",
+    "@itavy/test-utilities": "^1.1.1",
     "amqplib": "^0.5.1",
     "child-process-promise": "^2.2.0",
     "eslint": "^3.15.0",
@@ -36,8 +36,8 @@
     "tab": "^1.0.0"
   },
   "dependencies": {
-    "@itavy/mq-structure": "*",
+    "@itavy/mq-structure": "git+ssh://git@bitbucket.org:itavy/mq-structure.git#initial_release",
     "@itavy/simple-timer": "^1.0.2",
-    "@itavy/utilities": "^1.1.0"
+    "@itavy/utilities": "^1.1.1"
   }
 }
