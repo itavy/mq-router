@@ -1,5 +1,0 @@
--u exports
--R spec
-./test/index.functional.js
--t 3000
--b
