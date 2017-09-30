@@ -33,8 +33,11 @@
     "tab": "^1.0.0"
   },
   "dependencies": {
+    "@itavy/ierror": "^1.1.1",
+    "@itavy/mq-connector": "git+ssh://git@bitbucket.org/itavy/mq-connector.git#initial_release",
     "@itavy/mq-structure": "git+ssh://git@bitbucket.org/itavy/mq-structure.git#initial_release",
     "@itavy/simple-timer": "^1.0.2",
-    "@itavy/utilities": "^1.1.1"
+    "@itavy/utilities": "^1.1.1",
+    "debug": "^3.1.0"
   }
 }
