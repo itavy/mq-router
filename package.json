@@ -6,12 +6,17 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha",
     "test:coverage": "./node_modules/.bin/nyc npm test",
-    "test:check-style": "./node_modules/.bin/eslint index.js lib/* \"test/**/*.js\"",
+    "test:check-style": "./node_modules/.bin/eslint index.js lib/latest/* \"test/**/*.js\"",
+    "build": "npm run build:v6x",
+    "build:add": "git add lib",
+    "build:v6x": "BABEL_ENV=v6x ./node_modules/.bin/babel lib/latest -d lib/v6x",
     "pretest": "npm run test:check-style",
     "generate-jsdoc": "./node_modules/.bin/jsdoc -c jsdoc.conf.json"
   },
   "pre-commit": [
-    "test"
+    "test",
+    "build",
+    "build:add"
   ],
   "repository": {
     "type": "git",
@@ -22,6 +27,9 @@
   "homepage": "https://bitbucket.org/itavy/mq-router#readme",
   "devDependencies": {
     "@itavy/test-utilities": "~4.0.0",
+    "babel-cli": "~6.26.0",
+    "babel-plugin-transform-object-rest-spread": "~6.26.0",
+    "babel-preset-env": "~1.6.0",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^16.0.0",
     "eslint-plugin-import": "^2.7.0",
@@ -44,6 +52,7 @@
     "@itavy/simple-timer": "~1.0.2",
     "@itavy/utilities": "~1.1.1",
     "debug": "~3.1.0",
+    "semver": "~5.4.1",
     "uuid": "~3.1.0"
   },
   "nyc": {
@@ -56,7 +65,7 @@
     "functions": 95,
     "branches": 95,
     "include": [
-      "lib/**/*.js"
+      "lib/latest/*.js"
     ],
     "reporter": [
       "lcov",
