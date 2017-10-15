@@ -6,7 +6,7 @@ const minNodeVersion = '6.0.0';
 
 /**
  * check if min nodejs requirements are met
- * @returns {Object} @itavy/mq-structure module
+ * @returns {Object} @itavy/mq-router module
  */
 const getVersionModule = () => {
   if (semver.lt(process.version, minNodeVersion)) {
