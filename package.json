@@ -26,10 +26,10 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/itavy/mq-router#readme",
   "devDependencies": {
-    "@itavy/test-utilities": "~4.0.0",
-    "babel-cli": "~6.26.0",
-    "babel-plugin-transform-object-rest-spread": "~6.26.0",
-    "babel-preset-env": "~1.6.0",
+    "@itavy/test-utilities": "^4.1.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^16.0.0",
     "eslint-plugin-import": "^2.7.0",
@@ -40,10 +40,10 @@
     "jaguarjs-jsdoc": "^1.0.2",
     "jsdoc": "^3.4.3",
     "jsdoc-to-markdown": "^3.0.0",
-    "mocha": "~4.0.1",
-    "nyc": "~11.2.1",
+    "mocha": "^4.0.1",
+    "nyc": "^11.2.1",
     "pre-commit": "^1.2.2",
-    "tap": "~10.7.2"
+    "tap": "^10.7.2"
   },
   "dependencies": {
     "@itavy/ierror": "~1.1.2",
