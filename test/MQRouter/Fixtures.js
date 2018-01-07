@@ -16,7 +16,8 @@ const testingMessage = {
   message: bufferedMessageConsumer,
 };
 
-const bufferedTestingMessage = MQMessage.fromSync(testingMessage).toPB();
+const mqTestingMessage = Reflect.construct(MQMessageV1, [testingMessage]);
+const bufferedTestingMessage = mqTestingMessage.toPB();
 
 const queue = randomId(randomNumber(30, 20));
 const mqURI = 'amqp://localhost';
@@ -26,9 +27,17 @@ const exchange = randomId(randomNumber(30, 20));
 
 const testingError = Error('MQRouterTestingError');
 const routeMessage = {
-  message:     testingMessage,
+  message:     mqTestingMessage,
   consumerTag: randomId(randomNumber(30, 20)),
   version:     MQMessageV1,
+  queue,
+  topic,
+  exchange,
+};
+
+const consumeMessage = {
+  message:     bufferedTestingMessage,
+  consumerTag: randomId(randomNumber(30, 20)),
   queue,
   topic,
   exchange,
@@ -45,4 +54,8 @@ module.exports = {
   bufferedMessageConsumer,
   bufferedTestingMessage,
   routeMessage,
+  consumeMessage,
+  mqTestingMessage,
+  MQMessage,
+  MQMessageV1,
 };
