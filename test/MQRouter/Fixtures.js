@@ -1,6 +1,6 @@
 'use strict';
 
-const { MQMessage } = require('@itavy/mq-structure');
+const { MQMessage, MQMessageV1 } = require('@itavy/mq-structure');
 const { randomId, randomNumber } = require('@itavy/test-utilities');
 
 const bufferedMessageConsumer = Buffer.from(randomId(randomNumber(100, 80)));
@@ -25,6 +25,14 @@ const topic = `${randomId(randomNumber(10, 5))}.${randomId(randomNumber(10, 5))}
 const exchange = randomId(randomNumber(30, 20));
 
 const testingError = Error('MQRouterTestingError');
+const routeMessage = {
+  message:     testingMessage,
+  consumerTag: randomId(randomNumber(30, 20)),
+  version:     MQMessageV1,
+  queue,
+  topic,
+  exchange,
+};
 
 module.exports = {
   queue,
@@ -36,4 +44,5 @@ module.exports = {
   testingMessage,
   bufferedMessageConsumer,
   bufferedTestingMessage,
+  routeMessage,
 };

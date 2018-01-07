@@ -7,7 +7,6 @@
   "env": {
     "browser": false,
     "node": true,
-    "es6": true,
     "mocha": true
   },
   "rules": {
@@ -29,12 +28,12 @@
       "requireReturnDescription": true
     }],
     "require-jsdoc": [2, {
-      "require": {
-        "FunctionDeclaration": true,
-        "MethodDefinition": true,
-        "ClassDeclaration": true,
-        "ArrowFunctionExpression": true
-      }
+        "require": {
+            "FunctionDeclaration": true,
+            "MethodDefinition": true,
+            "ClassDeclaration": true,
+            "ArrowFunctionExpression": true
+        }
     }]
   }
 }

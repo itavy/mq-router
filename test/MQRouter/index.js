@@ -8,4 +8,5 @@ describe('MQRouter', () => {
   require('./DefaultMessageConsumer'); // eslint-disable-line global-require
   require('./RespondToRequest'); // eslint-disable-line global-require
   require('./WaitForSelfSubscription'); // eslint-disable-line global-require
+  require('./RouteMessage'); // eslint-disable-line global-require
 });
