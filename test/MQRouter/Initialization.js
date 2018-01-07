@@ -29,7 +29,7 @@ describe('Initialization', () => {
     done();
   });
   afterEach((done) => {
-    clearInterval(testRouter.requestsRoutingTable.checkIntervalId);
+    testRouter.requestsRoutingTable.close();
     sandbox.restore();
     done();
   });

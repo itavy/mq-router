@@ -20,10 +20,9 @@ describe('DefaultMessageConsumer', () => {
   beforeEach((done) => {
     done();
   });
-  afterEach((done) => {
-    clearInterval(testRouter.requestsRoutingTable.checkIntervalId);
+  afterEach(async () => {
+    await testRouter.close();
     sandbox.restore();
-    done();
   });
 
   it('Should reject for invalid no handler', () => {

@@ -20,9 +20,8 @@ describe('WaitForSelfSubscription', () => {
     }]);
     done();
   });
-  afterEach((done) => {
-    clearInterval(testRouter.requestsRoutingTable.checkIntervalId);
-    done();
+  afterEach(async () => {
+    await testRouter.close();
   });
 
   it('Should reject on subscribe error', () => {

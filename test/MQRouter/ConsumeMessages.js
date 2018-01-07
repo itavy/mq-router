@@ -24,10 +24,9 @@ describe('ConsumeMessages', () => {
     }]);
     done();
   });
-  afterEach((done) => {
-    clearInterval(testRouter.requestsRoutingTable.checkIntervalId);
+  afterEach(async () => {
+    await testRouter.close();
     sandbox.restore();
-    done();
   });
 
   it('Should reject with unknown message', () => {

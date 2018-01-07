@@ -27,10 +27,9 @@ describe('RespondToRequest', () => {
     }]);
     done();
   });
-  afterEach((done) => {
-    clearInterval(testRouter.requestsRoutingTable.checkIntervalId);
+  afterEach(async () => {
+    await testRouter.close();
     sandbox.restore();
-    done();
   });
 
   it('Should resolve with true for null message', () =>

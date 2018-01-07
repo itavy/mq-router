@@ -29,10 +29,9 @@ describe('BuildRequest', () => {
     }]);
     done();
   });
-  afterEach((done) => {
-    clearInterval(testRouter.requestsRoutingTable.checkIntervalId);
+  afterEach(async () => {
+    await testRouter.close();
     sandbox.restore();
-    done();
   });
 
   it('Should throw expected error', () => testRouter.buildRequest({ message: {} })

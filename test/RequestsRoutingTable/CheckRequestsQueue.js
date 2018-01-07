@@ -24,7 +24,7 @@ describe('Initialization', () => {
   afterEach((done) => {
     sandbox.restore();
     clock.restore();
-    clearInterval(testTable.checkIntervalId);
+    testTable.close();
     done();
   });
 

@@ -13,7 +13,7 @@ describe('SetMessagesTimeoutListener', () => {
     done();
   });
   afterEach((done) => {
-    clearInterval(testTable.checkIntervalId);
+    testTable.close();
     done();
   });
 

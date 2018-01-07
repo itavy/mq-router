@@ -23,10 +23,9 @@ describe('RouteMessage', () => {
     }]);
     done();
   });
-  afterEach((done) => {
-    clearInterval(testRouter.requestsRoutingTable.checkIntervalId);
+  afterEach(async () => {
+    await testRouter.close();
     sandbox.restore();
-    done();
   });
 
   it('Should reject with expected error', () => {
