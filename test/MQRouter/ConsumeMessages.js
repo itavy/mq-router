@@ -8,7 +8,7 @@ const {
   consumeMessage,
   mqURI,
   name,
-  mqTestingMessage,
+  mqTestingResponseMessage,
   MQMessageV1,
 } = require('./Fixtures');
 
@@ -24,6 +24,7 @@ describe('ConsumeMessages', () => {
     }]);
     done();
   });
+
   afterEach(async () => {
     await testRouter.close();
     sandbox.restore();
@@ -48,7 +49,7 @@ describe('ConsumeMessages', () => {
       .then(() => {
         expect(routeStub.callCount).to.be.equal(1);
         expect(routeStub.getCall(0).args[0]).to.be.eql({
-          message:     mqTestingMessage,
+          message:     mqTestingResponseMessage,
           queue:       consumeMessage.queue,
           topic:       consumeMessage.topic,
           exchange:    consumeMessage.exchange,

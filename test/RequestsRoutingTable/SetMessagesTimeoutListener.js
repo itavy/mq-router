@@ -12,6 +12,7 @@ describe('SetMessagesTimeoutListener', () => {
     }]);
     done();
   });
+
   afterEach((done) => {
     testTable.close();
     done();

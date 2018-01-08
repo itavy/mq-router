@@ -12,6 +12,7 @@ describe('Initialization', () => {
     }]);
     done();
   });
+
   afterEach((done) => {
     clearInterval(testTable.checkIntervalId);
     done();

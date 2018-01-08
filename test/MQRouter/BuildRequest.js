@@ -10,7 +10,7 @@ const {
   name,
   testingError,
   bufferedMessageConsumer,
-  testingMessage: {
+  testingResponseMessage: {
     replyTo,
     to,
     message,
@@ -29,6 +29,7 @@ describe('BuildRequest', () => {
     }]);
     done();
   });
+
   afterEach(async () => {
     await testRouter.close();
     sandbox.restore();

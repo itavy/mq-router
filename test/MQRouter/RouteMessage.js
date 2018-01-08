@@ -23,6 +23,7 @@ describe('RouteMessage', () => {
     }]);
     done();
   });
+
   afterEach(async () => {
     await testRouter.close();
     sandbox.restore();

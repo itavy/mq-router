@@ -21,6 +21,7 @@ describe('ValidateDestination', () => {
     }]);
     done();
   });
+
   afterEach(async () => {
     await testRouter.close();
     sandbox.restore();

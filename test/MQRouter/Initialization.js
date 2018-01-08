@@ -28,6 +28,7 @@ describe('Initialization', () => {
     }]);
     done();
   });
+
   afterEach((done) => {
     testRouter.requestsRoutingTable.close();
     sandbox.restore();

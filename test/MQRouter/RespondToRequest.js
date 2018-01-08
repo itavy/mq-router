@@ -7,12 +7,12 @@ const {
   queue,
   mqURI,
   name,
-  testingMessage: {
+  testingResponseMessage: {
     replyTo,
     destination,
   },
   testingError,
-  bufferedMessageConsumer,
+  bufferedTestingResponseMessage,
 } = require('./Fixtures');
 
 describe('RespondToRequest', () => {
@@ -27,6 +27,7 @@ describe('RespondToRequest', () => {
     }]);
     done();
   });
+
   afterEach(async () => {
     await testRouter.close();
     sandbox.restore();
@@ -48,7 +49,7 @@ describe('RespondToRequest', () => {
   it('Should forward request to sendMQMsg for non null message', () => {
     const sendMQMsgStub = sandbox.stub(testRouter, 'sendMQMsg').rejects(testingError);
     return testRouter.respondToRequest({
-      message: bufferedMessageConsumer,
+      message: bufferedTestingResponseMessage,
       version: MQMessageV1,
       replyTo,
       destination,
@@ -59,7 +60,7 @@ describe('RespondToRequest', () => {
         expect(sendMQMsgStub.callCount).to.be.equal(1);
         expect(sendMQMsgStub.getCall(0).args).to.be.eql([{
           isRequest: false,
-          message:   bufferedMessageConsumer,
+          message:   bufferedTestingResponseMessage,
           version:   MQMessageV1,
           replyTo,
           destination,

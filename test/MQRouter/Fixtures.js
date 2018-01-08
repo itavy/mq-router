@@ -4,7 +4,7 @@ const { MQMessage, MQMessageV1 } = require('@itavy/mq-structure');
 const { randomId, randomNumber } = require('@itavy/test-utilities');
 
 const bufferedMessageConsumer = Buffer.from(randomId(randomNumber(100, 80)));
-const testingMessage = {
+const testingResponseMessage = {
   id:      randomId(randomNumber(50, 30)),
   replyTo: randomId(randomNumber(50, 30)),
   from:    randomId(randomNumber(30, 20)),
@@ -16,8 +16,23 @@ const testingMessage = {
   message: bufferedMessageConsumer,
 };
 
-const mqTestingMessage = Reflect.construct(MQMessageV1, [testingMessage]);
-const bufferedTestingMessage = mqTestingMessage.toPB();
+const testingRequestMessage = {
+  id:      randomId(randomNumber(50, 30)),
+  replyTo: '',
+  from:    randomId(randomNumber(30, 20)),
+  replyOn: {
+    queue:    randomId(randomNumber(30, 20)),
+    exchange: randomId(randomNumber(30, 20)),
+  },
+  to:      randomId(randomNumber(30, 20)),
+  message: bufferedMessageConsumer,
+};
+
+const mqTestingResponseMessage = Reflect.construct(MQMessageV1, [testingResponseMessage]);
+const bufferedTestingResponseMessage = mqTestingResponseMessage.toPB();
+
+const mqTestingRequestMessage = Reflect.construct(MQMessageV1, [testingRequestMessage]);
+const bufferedTestingRequestMessage = mqTestingRequestMessage.toPB();
 
 const queue = randomId(randomNumber(30, 20));
 const mqURI = 'amqp://localhost';
@@ -27,7 +42,7 @@ const exchange = randomId(randomNumber(30, 20));
 
 const testingError = Error('MQRouterTestingError');
 const routeMessage = {
-  message:     mqTestingMessage,
+  message:     mqTestingResponseMessage,
   consumerTag: randomId(randomNumber(30, 20)),
   version:     MQMessageV1,
   queue,
@@ -36,7 +51,7 @@ const routeMessage = {
 };
 
 const consumeMessage = {
-  message:     bufferedTestingMessage,
+  message:     bufferedTestingResponseMessage,
   consumerTag: randomId(randomNumber(30, 20)),
   queue,
   topic,
@@ -50,12 +65,19 @@ module.exports = {
   mqURI,
   name,
   testingError,
-  testingMessage,
   bufferedMessageConsumer,
-  bufferedTestingMessage,
+
+  testingResponseMessage,
+  mqTestingResponseMessage,
+  bufferedTestingResponseMessage,
+
+  testingRequestMessage,
+  mqTestingRequestMessage,
+  bufferedTestingRequestMessage,
+
   routeMessage,
   consumeMessage,
-  mqTestingMessage,
+
   MQMessage,
   MQMessageV1,
 };

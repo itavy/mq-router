@@ -20,6 +20,7 @@ describe('WaitForSelfSubscription', () => {
     }]);
     done();
   });
+
   afterEach(async () => {
     await testRouter.close();
   });

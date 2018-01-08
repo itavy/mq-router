@@ -22,6 +22,7 @@ describe('Close', () => {
     }]);
     done();
   });
+
   afterEach((done) => {
     sandbox.restore();
     done();

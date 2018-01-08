@@ -10,7 +10,7 @@ const {
   mqURI,
   name,
   testingError,
-  testingMessage,
+  testingResponseMessage,
 } = require('./Fixtures');
 
 describe('DefaultMessageConsumer', () => {
@@ -20,6 +20,7 @@ describe('DefaultMessageConsumer', () => {
   beforeEach((done) => {
     done();
   });
+
   afterEach(async () => {
     await testRouter.close();
     sandbox.restore();
@@ -34,7 +35,7 @@ describe('DefaultMessageConsumer', () => {
       mqURI,
     }]);
     return testRouter.defaultMessageConsumer({
-      message: testingMessage,
+      message: testingResponseMessage,
       queue,
       topic,
       exchange,
@@ -47,7 +48,7 @@ describe('DefaultMessageConsumer', () => {
         expect(errorCollector.callCount).to.be.equal(1);
         expect(errorCollector.getCall(0).args).to.be.eql([{
           error,
-          message: testingMessage,
+          message: testingResponseMessage,
           queue,
           topic,
           exchange,
@@ -66,7 +67,7 @@ describe('DefaultMessageConsumer', () => {
     }]);
 
     return testRouter.defaultMessageConsumer({
-      message: testingMessage,
+      message: testingResponseMessage,
       queue,
       topic,
       exchange,
@@ -76,7 +77,7 @@ describe('DefaultMessageConsumer', () => {
         expect(error).to.be.equal(testingError);
         expect(defaultHandler.callCount).to.be.equal(1);
         expect(defaultHandler.getCall(0).args).to.be.eql([{
-          message: testingMessage.message,
+          message: testingResponseMessage.message,
           queue,
           topic,
           exchange,
@@ -86,7 +87,7 @@ describe('DefaultMessageConsumer', () => {
   });
 
   it('Should resolve with true', () => {
-    const defaultHandler = sandbox.stub().resolves({ message: testingMessage });
+    const defaultHandler = sandbox.stub().resolves({ message: testingResponseMessage });
     testRouter = Reflect.construct(MQRouter, [{
       defaultHandler,
       name,
@@ -96,7 +97,7 @@ describe('DefaultMessageConsumer', () => {
     const respondToRequestStub = sandbox.stub(testRouter, 'respondToRequest').resolves();
 
     return testRouter.defaultMessageConsumer({
-      message: testingMessage,
+      message: testingResponseMessage,
       queue,
       topic,
       exchange,
@@ -106,9 +107,9 @@ describe('DefaultMessageConsumer', () => {
         expect(response).to.be.equal(true);
         expect(respondToRequestStub.callCount).to.be.equal(1);
         expect(respondToRequestStub.getCall(0).args).to.be.eql([{
-          message:     testingMessage,
-          replyTo:     testingMessage.id,
-          destination: testingMessage.replyOn,
+          message:     testingResponseMessage,
+          replyTo:     testingResponseMessage.id,
+          destination: testingResponseMessage.replyOn,
         }]);
         return Promise.resolve();
       });

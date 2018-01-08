@@ -20,6 +20,7 @@ describe('GetMessageId', () => {
     }]);
     done();
   });
+
   afterEach(async () => {
     await testRouter.close();
     sandbox.restore();
