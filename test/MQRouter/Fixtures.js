@@ -58,6 +58,37 @@ const consumeMessage = {
   exchange,
 };
 
+const sendMQMsgRequestNoTTL = {
+  message:     bufferedMessageConsumer,
+  destination: {
+    queue: randomId(randomNumber(30, 20)),
+  },
+  version:   MQMessageV1,
+  isRequest: true,
+};
+
+const sendMQMsgRequest = Object.assign(
+  {},
+  sendMQMsgRequestNoTTL,
+  {
+    options: {
+      ttl: randomNumber(30, 5),
+    },
+  }
+);
+
+const sendMQMsgResponse = {
+  message:     bufferedMessageConsumer,
+  destination: {
+    queue: randomId(randomNumber(30, 20)),
+  },
+  version: MQMessageV1,
+  replyTo: randomId(randomNumber(30, 20)),
+  options: {
+    ttl: randomNumber(30, 5),
+  },
+};
+
 module.exports = {
   queue,
   topic,
@@ -77,6 +108,10 @@ module.exports = {
 
   routeMessage,
   consumeMessage,
+
+  sendMQMsgResponse,
+  sendMQMsgRequestNoTTL,
+  sendMQMsgRequest,
 
   MQMessage,
   MQMessageV1,
