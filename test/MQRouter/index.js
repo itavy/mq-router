@@ -16,6 +16,7 @@ describe('MQRouter', () => {
   require('./OwnHandler');
   require('./SendMQMsg');
   require('./SendMessage');
+  require('./SendRequest');
 });
 
 /* eslint-enable global-require */
