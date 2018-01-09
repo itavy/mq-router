@@ -1,7 +1,6 @@
 'use strict';
 
 const { expect, getSinonSandbox } = require('@itavy/test-utilities');
-// const { IError } = require('@itavy/ierror');
 const { MQRouter } = require('../../');
 const {
   queue,

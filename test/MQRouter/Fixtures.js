@@ -89,6 +89,23 @@ const sendMQMsgResponse = {
   },
 };
 
+const sendMessageDummy = {
+  message:     bufferedMessageConsumer,
+  destination: {
+    queue: randomId(randomNumber(30, 20)),
+  },
+};
+
+const sendMessageWithTTL = Object.assign({}, sendMessageDummy, {
+  options: {
+    ttl: randomNumber(20, 5),
+  },
+});
+
+const sendMessageWithVersion = Object.assign({}, sendMessageDummy, {
+  version: MQMessageV1,
+});
+
 module.exports = {
   queue,
   topic,
@@ -112,6 +129,10 @@ module.exports = {
   sendMQMsgResponse,
   sendMQMsgRequestNoTTL,
   sendMQMsgRequest,
+
+  sendMessageDummy,
+  sendMessageWithTTL,
+  sendMessageWithVersion,
 
   MQMessage,
   MQMessageV1,
