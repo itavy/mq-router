@@ -35,9 +35,11 @@ const mqTestingRequestMessage = Reflect.construct(MQMessageV1, [testingRequestMe
 const bufferedTestingRequestMessage = mqTestingRequestMessage.toPB();
 
 const queue = randomId(randomNumber(30, 20));
+const dummyQueue = randomId(randomNumber(30, 20));
 const mqURI = 'amqp://localhost';
 const name = randomId(randomNumber(30, 20));
 const topic = `${randomId(randomNumber(10, 5))}.${randomId(randomNumber(10, 5))}`;
+const dummyTopic = `${randomId(randomNumber(10, 5))}.${randomId(randomNumber(10, 5))}`;
 const exchange = randomId(randomNumber(30, 20));
 
 const testingError = Error('MQRouterTestingError');
@@ -133,6 +135,9 @@ module.exports = {
   sendMessageDummy,
   sendMessageWithTTL,
   sendMessageWithVersion,
+
+  dummyTopic,
+  dummyQueue,
 
   MQMessage,
   MQMessageV1,

@@ -17,6 +17,7 @@ describe('MQRouter', () => {
   require('./SendMQMsg');
   require('./SendMessage');
   require('./SendRequest');
+  require('./CheckIfIsSelfSubscribedForResponses');
 });
 
 /* eslint-enable global-require */
