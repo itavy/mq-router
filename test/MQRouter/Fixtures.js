@@ -141,4 +141,6 @@ module.exports = {
 
   MQMessage,
   MQMessageV1,
+  randomId,
+  randomNumber,
 };
