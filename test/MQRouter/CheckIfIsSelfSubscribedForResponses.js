@@ -70,14 +70,12 @@ describe('CheckIfIsSelfSubscribedForResponses', () => {
       .then((error) => {
         expect(error.cause.message).to.be.equal(testingError.message);
         expect(subscribeStub.callCount).to.be.equal(1);
-        expect(subscribeStub.getCall(0).args).to.be.eql([
-          {
-            handler: testRouter.ownHandler,
-            queue,
-            topic,
-            exchange,
-          },
-        ]);
+        const subscribeParams = subscribeStub.getCall(0).args[0];
+        expect(subscribeParams).to.have.property('queue', queue);
+        expect(subscribeParams).to.have.property('topic', topic);
+        expect(subscribeParams).to.have.property('exchange', exchange);
+        expect(subscribeParams).to.have.property('handler');
+        expect(subscribeParams.handler).to.be.instanceOf(Function);
         return Promise.resolve();
       });
   });

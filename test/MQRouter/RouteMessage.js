@@ -83,6 +83,7 @@ describe('RouteMessage', () => {
         expect(handler.callCount).to.be.equal(1);
         expect(handler.getCall(0).args[0]).to.be.eql({
           message:     routeMessage.message.message,
+          replyTo:     routeMessage.message.replyTo,
           queue:       routeMessage.queue,
           topic:       routeMessage.topic,
           exchange:    routeMessage.exchange,

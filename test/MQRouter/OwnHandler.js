@@ -43,7 +43,7 @@ describe('OwnHandler', () => {
         expect(defaultConsumerStub.callCount).to.be.equal(1);
         expect(defaultConsumerStub.getCall(0).args).to.be.eql([
           {
-            message: mqTestingRequestMessage.message,
+            message: mqTestingRequestMessage,
             queue,
             topic,
             exchange,
@@ -56,7 +56,8 @@ describe('OwnHandler', () => {
   it('Should forward to requests routing table for response type message', () => {
     const defaultConsumerStub = sandbox.stub(testRouter.requestsRoutingTable, 'callById').resolves();
     return testRouter.ownHandler({
-      message: mqTestingResponseMessage,
+      message: mqTestingResponseMessage.message,
+      replyTo: mqTestingResponseMessage.replyTo,
       queue,
       topic,
       exchange,
