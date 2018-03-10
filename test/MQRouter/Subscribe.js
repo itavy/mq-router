@@ -112,15 +112,13 @@ describe('Subscribe', () => {
       .should.be.rejected
       .then(() => {
         expect(cRegisterStub.callCount).to.be.equal(1);
-        expect(cRegisterStub.getCall(0).args).to.be.eql([
-          {
-            consumer: testRouter.consumeMessages,
-            queue:    dummyQueue,
-            topic:    dummyTopic,
-            options:  dummyOptions,
-            exchange,
-          },
-        ]);
+        const connArgs = cRegisterStub.getCall(0).args[0];
+        expect(connArgs).to.have.property('queue', dummyQueue);
+        expect(connArgs).to.have.property('topic', dummyTopic);
+        expect(connArgs).to.have.property('options', dummyOptions);
+        expect(connArgs).to.have.property('exchange', exchange);
+        expect(connArgs).to.have.property('consumer');
+        expect(connArgs.consumer).to.be.instanceOf(Function);
         return Promise.resolve();
       });
   });
