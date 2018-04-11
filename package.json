@@ -7,6 +7,8 @@
     "test": "./node_modules/.bin/mocha",
     "test:coverage": "./node_modules/.bin/nyc npm test",
     "test:check-style": "./node_modules/.bin/eslint index.js lib/latest/* \"test/**/*.js\"",
+    "test:e2e": "npm run test:e2e:rabbitmq",
+    "test:e2e:rabbitmq": "./node_modules/.bin/tap -b -t 5 ./test/e2e/*.js",
     "build": "npm run build:v6x",
     "build:add": "git add lib",
     "build:v6x": "BABEL_ENV=v6x ./node_modules/.bin/babel lib/latest -d lib/v6x",
@@ -43,7 +45,7 @@
     "mocha": "^4.1.0",
     "nyc": "^11.4.1",
     "pre-commit": "^1.2.2",
-    "tap": "^11.0.1"
+    "tap": "~11.1.3"
   },
   "dependencies": {
     "@itavy/ierror": "~1.1.2",
