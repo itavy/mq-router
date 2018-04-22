@@ -1,6 +1,7 @@
 bower_components
 build/Release
 coverage
+docs/
 .env
 .eslintcache
 .grunt
@@ -20,8 +21,8 @@ npm-debug.log*
 pids
 *.seed
 *.tgz
-test*.js
 typings/
 yarn-debug.log*
 yarn-error.log*
 .yarn-integrity
+/test*.js

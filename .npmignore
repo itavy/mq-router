@@ -1,0 +1,9 @@
+coverage/
+docs/
+examples/
+test/
+.eslintignore
+.eslintrc
+.istanbul.yml
+jsdoc.json
+README.hbs

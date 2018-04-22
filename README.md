@@ -1,1 +1,228 @@
-# MQ Router README
+# mq-Structure
+
+## Instalation
+
+```
+npm install @itavy/mq-structure
+```
+
+## API
+## Classes
+
+<dl>
+<dt><a href="#MQRouter">MQRouter</a></dt>
+<dd><p>Class MQRouter</p>
+</dd>
+<dt><a href="#RequestsRoutingTable">RequestsRoutingTable</a></dt>
+<dd><p>MQRequestsRoutingTable class</p>
+</dd>
+</dl>
+
+## Objects
+
+<dl>
+<dt><a href="#itavy/mq-router">itavy/mq-router</a> : <code>object</code></dt>
+<dd><p>MQRouter module</p>
+</dd>
+</dl>
+
+## Typedefs
+
+<dl>
+<dt><a href="#MQPublishOptions">MQPublishOptions</a> : <code>Object</code></dt>
+<dd></dd>
+</dl>
+
+<a name="MQRouter"></a>
+
+## MQRouter
+Class MQRouter
+
+**Kind**: global class  
+
+* [MQRouter](#MQRouter)
+    * [new MQRouter(mqURI, [connector], mqMessage, mqKnownMessages, mqDefaultMessageVersion, name, [queue], [topic], [exchange], [errorCollector], [defaultHandler], [defaultTTL])](#new_MQRouter_new)
+    * [.sendMessage(message, version, queue, exchange, [options])](#MQRouter+sendMessage) ⇒ <code>Promise</code>
+    * [.sendRequest(message, queue, exchange, [options], version)](#MQRouter+sendRequest) ⇒ <code>Promise</code>
+    * [.subscribe(handler, [queue], [topic], [exchange], [options])](#MQRouter+subscribe) ⇒ <code>Promise</code>
+    * [.close()](#MQRouter+close) ⇒ <code>Promise</code>
+
+<a name="new_MQRouter_new"></a>
+
+### new MQRouter(mqURI, [connector], mqMessage, mqKnownMessages, mqDefaultMessageVersion, name, [queue], [topic], [exchange], [errorCollector], [defaultHandler], [defaultTTL])
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| mqURI | <code>String</code> |  | uri for connecting to mq bus |
+| [connector] | <code>String</code> | <code>RABBIT_MQ</code> | connector type to use |
+| mqMessage | <code>Object</code> |  | message builder |
+| mqKnownMessages | <code>Array.&lt;Object&gt;</code> |  | list of known message versions |
+| mqDefaultMessageVersion | <code>Object</code> |  | default version of message to use |
+| name | <code>String</code> |  | router identifier |
+| [queue] | <code>String</code> | <code>&#x27;&#x27;</code> | own queue on which the router will listen |
+| [topic] | <code>String</code> | <code>&#x27;&#x27;</code> | own topic on which the router will listen |
+| [exchange] | <code>String</code> | <code>&#x27;&#x27;</code> | exchange to bind the topic |
+| [errorCollector] | <code>function</code> |  | function to be called when unknown messages are received |
+| [defaultHandler] | <code>function</code> |  | function which resolves to a promise to be called when it receives specific messages |
+| [defaultTTL] | <code>Number</code> | <code>5</code> | default ttl in seconds for messages or requests sent |
+
+<a name="MQRouter+sendMessage"></a>
+
+### mqRouter.sendMessage(message, version, queue, exchange, [options]) ⇒ <code>Promise</code>
+Send message over mq
+
+**Kind**: instance method of [<code>MQRouter</code>](#MQRouter)  
+**Returns**: <code>Promise</code> - resolves when the message is accepted by the broker  
+**Access**: public  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| message | <code>Buffer</code> |  | message to be sent |
+| version | <code>Object</code> |  | version of message to be sent |
+| queue | <code>String</code> |  | queue or topic where to send the message |
+| exchange | <code>String</code> |  | exchange to be used along with queue/topic to send the message, empty string means the default exchange will be used |
+| [options] | [<code>MQPublishOptions</code>](#MQPublishOptions) | <code>{}</code> | options for sending message |
+
+<a name="MQRouter+sendRequest"></a>
+
+### mqRouter.sendRequest(message, queue, exchange, [options], version) ⇒ <code>Promise</code>
+Send request over mq
+
+**Kind**: instance method of [<code>MQRouter</code>](#MQRouter)  
+**Returns**: <code>Promise</code> - resolves when the message is received  
+**Access**: public  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| message | <code>Buffer</code> |  | message to be sent |
+| queue | <code>String</code> |  | queue or topic where to send the message |
+| exchange | <code>String</code> |  | exchange to be used along with queue/topic to send the message, empty string means the default exchange will be used |
+| [options] | [<code>MQPublishOptions</code>](#MQPublishOptions) | <code>{}</code> | options for sending request |
+| version | <code>Object</code> |  | version of message to be sent |
+
+<a name="MQRouter+subscribe"></a>
+
+### mqRouter.subscribe(handler, [queue], [topic], [exchange], [options]) ⇒ <code>Promise</code>
+Subscribe to queue
+
+**Kind**: instance method of [<code>MQRouter</code>](#MQRouter)  
+**Returns**: <code>Promise</code> - resolves on success subscribe  
+**Access**: public  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| handler | <code>Promise</code> |  | Promise to be called when it is received a message |
+| [queue] | <code>String</code> | <code>&#x27;&#x27;</code> | queue where to subscribe or '' for autogenerated queue |
+| [topic] | <code>String</code> | <code>&#x27;&#x27;</code> | topic to bind the queue or '' for none |
+| [exchange] | <code>String</code> | <code>&#x27;&#x27;</code> | exchange to be used for queue and topic or '' for default |
+| [options] | <code>Object</code> | <code>{}</code> | subscribe options |
+
+<a name="MQRouter+close"></a>
+
+### mqRouter.close() ⇒ <code>Promise</code>
+Close stops checks for expired messages and close connection
+
+**Kind**: instance method of [<code>MQRouter</code>](#MQRouter)  
+**Returns**: <code>Promise</code> - resolves when connection is closed  
+**Access**: public  
+<a name="RequestsRoutingTable"></a>
+
+## RequestsRoutingTable
+MQRequestsRoutingTable class
+
+**Kind**: global class  
+
+* [RequestsRoutingTable](#RequestsRoutingTable)
+    * [new RequestsRoutingTable(name, [checkInterval])](#new_RequestsRoutingTable_new)
+    * [.register(serializedMessage, id, options)](#RequestsRoutingTable+register) ⇒ <code>Promise</code>
+    * [.callById(id, [message], [error])](#RequestsRoutingTable+callById) ⇒ <code>Boolean</code>
+    * [.setMessagesTimeoutListener(emitter)](#RequestsRoutingTable+setMessagesTimeoutListener) ⇒ <code>undefined</code>
+    * [.close()](#RequestsRoutingTable+close) ⇒ <code>undefined</code>
+
+<a name="new_RequestsRoutingTable_new"></a>
+
+### new RequestsRoutingTable(name, [checkInterval])
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| name | <code>String</code> |  | router name |
+| [checkInterval] | <code>Number</code> | <code>200</code> | check interval in ms to see if requests have passed their ttl |
+
+<a name="RequestsRoutingTable+register"></a>
+
+### requestsRoutingTable.register(serializedMessage, id, options) ⇒ <code>Promise</code>
+Register a check for a request
+
+**Kind**: instance method of [<code>RequestsRoutingTable</code>](#RequestsRoutingTable)  
+**Returns**: <code>Promise</code> - resolves with promise that will be resolved upon receiving message  
+**Access**: public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| serializedMessage | <code>Buffer</code> | message to be sent |
+| id | <code>String</code> | message id |
+| options | <code>Object</code> | message options |
+
+<a name="RequestsRoutingTable+callById"></a>
+
+### requestsRoutingTable.callById(id, [message], [error]) ⇒ <code>Boolean</code>
+Resolve a request
+
+**Kind**: instance method of [<code>RequestsRoutingTable</code>](#RequestsRoutingTable)  
+**Returns**: <code>Boolean</code> - true if listener exists  
+**Throws**:
+
+- <code>IError</code> if listener does not exists
+
+**Access**: public  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| id | <code>String</code> |  | message id |
+| [message] | <code>Buffer</code> | <code></code> | response message |
+| [error] | <code>Object</code> | <code></code> | error to be sent to handler |
+
+<a name="RequestsRoutingTable+setMessagesTimeoutListener"></a>
+
+### requestsRoutingTable.setMessagesTimeoutListener(emitter) ⇒ <code>undefined</code>
+Setter for event emitter
+
+**Kind**: instance method of [<code>RequestsRoutingTable</code>](#RequestsRoutingTable)  
+**Access**: public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| emitter | <code>EventEmitter</code> | event emitter |
+
+<a name="RequestsRoutingTable+close"></a>
+
+### requestsRoutingTable.close() ⇒ <code>undefined</code>
+Stops checks for expired messages
+
+**Kind**: instance method of [<code>RequestsRoutingTable</code>](#RequestsRoutingTable)  
+**Access**: public  
+<a name="itavy/mq-router"></a>
+
+## itavy/mq-router : <code>object</code>
+MQRouter module
+
+**Kind**: global namespace  
+<a name="MQPublishOptions"></a>
+
+## MQPublishOptions : <code>Object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| ttl | <code>Number</code> | ttl in seconds for the message |
+
+
+## TODO
+
+* more examples and better documentation
+* more e2e testing
+
+## LICENSE
+
+[MIT](https://github.com/itavy/mq-router/blob/master/LICENSE.md)
