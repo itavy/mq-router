@@ -23,11 +23,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/itavy/mq-router.git"
+    "url": "git+ssh://git@github.com/itavy/mq-router.git"
   },
   "author": "Octavian Ionescu <itavyg@gmail.com>",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/itavy/mq-router#readme",
+  "license": "MIT",
+  "homepage": "https://github.com/itavy/mq-router#readme",
   "devDependencies": {
     "@itavy/test-utilities": "^4.1.0",
     "babel-cli": "^6.26.0",
