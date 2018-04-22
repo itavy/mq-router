@@ -94,7 +94,8 @@ const sendMQMsgResponse = {
 const sendMessageDummy = {
   message:     bufferedMessageConsumer,
   destination: {
-    queue: randomId(randomNumber(30, 20)),
+    queue:    randomId(randomNumber(30, 20)),
+    exchange: '',
   },
 };
 
