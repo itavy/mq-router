@@ -18,6 +18,7 @@ const {
 
 describe('Initialization', () => {
   let testRouter;
+  let testQueueRouter;
   const sandbox = getSinonSandbox();
 
   beforeEach((done) => {
@@ -26,11 +27,16 @@ describe('Initialization', () => {
       queue,
       mqURI,
     }]);
+    testQueueRouter = Reflect.construct(MQRouter, [{
+      name,
+      mqURI,
+    }]);
     done();
   });
 
   afterEach((done) => {
     testRouter.requestsRoutingTable.close();
+    testQueueRouter.requestsRoutingTable.close();
     sandbox.restore();
     done();
   });
@@ -53,6 +59,13 @@ describe('Initialization', () => {
     expect(testRouter).to.have.property('defaultHandler');
     expect(testRouter).to.have.property('identification');
     expect(testRouter).to.have.property('returnDestination');
+    done();
+  });
+
+  it('Should generate specific queue if none provided', (done) => {
+    const { queue: generatedQueue } = testQueueRouter.identification.listen;
+    const r = new RegExp(`${name}-\\d+`);
+    expect(r.test(generatedQueue)).to.be.equal(true);
     done();
   });
 
