@@ -6,15 +6,13 @@ const {
   Fixtures: {
     mqUri: mqURI,
     testConsumerQueue,
-    testResponseQueue,
   },
 } = require('./Fixtures');
 
 tap.test('Send RPC- work queue', (t) => {
   t.plan(2);
   const s = new MQRouter({
-    name:  'sender',
-    queue: testResponseQueue,
+    name: 'sender',
     mqURI,
   });
 

@@ -10,7 +10,6 @@ const { MQRouter } = require('../lib/latest/index');
 
 const s = new MQRouter({
   name:  'rpc-sender',
-  queue: 'rpc-test-response',
   mqURI,
 });
 
