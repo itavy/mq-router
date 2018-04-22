@@ -1,9 +1,9 @@
-# mq-Structure
+# MQ-Router
 
 ## Instalation
 
 ```
-npm install @itavy/mq-structure
+npm install @itavy/mq-router
 ```
 
 ## API
@@ -222,6 +222,7 @@ MQRouter module
 
 * more examples and better documentation
 * more e2e testing
+* refactor tests for nodejs 6
 
 ## LICENSE
 
