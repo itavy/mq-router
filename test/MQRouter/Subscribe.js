@@ -100,7 +100,12 @@ describe('Subscribe', () => {
   it('Should call connector subscribe with expected parameters', () => {
     const cRegisterStub = sandbox.stub(testRouter.connector, 'subscribe')
       .rejects(testingError);
-    const dummyOptions = {};
+    const dummyOptions = {
+      prefetch:   false,
+      autoDelete: true,
+      durable:    false,
+      exclusive:  false,
+    };
 
     return testRouter.subscribe({
       handler: dummyResolveHandler,
@@ -115,7 +120,8 @@ describe('Subscribe', () => {
         const connArgs = cRegisterStub.getCall(0).args[0];
         expect(connArgs).to.have.property('queue', dummyQueue);
         expect(connArgs).to.have.property('topic', dummyTopic);
-        expect(connArgs).to.have.property('options', dummyOptions);
+        expect(connArgs).to.have.property('options');
+        expect(connArgs.options).to.be.eql(dummyOptions);
         expect(connArgs).to.have.property('exchange', exchange);
         expect(connArgs).to.have.property('consumer');
         expect(connArgs.consumer).to.be.instanceOf(Function);
