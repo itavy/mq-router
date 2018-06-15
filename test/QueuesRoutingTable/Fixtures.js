@@ -8,6 +8,7 @@ const getRecord = () => ({
   topic:    {},
   exchange: {},
   handler:  {},
+  count:    0,
 });
 
 // eslint-disable-next-line require-jsdoc

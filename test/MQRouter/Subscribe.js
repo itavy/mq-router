@@ -62,10 +62,11 @@ describe('Subscribe', () => {
         expect(qRegisterStub.callCount).to.be.equal(1);
         expect(qRegisterStub.getCall(0).args).to.be.eql([
           {
-            handler:  dummyResolveHandler,
-            queue:    '',
-            exchange: '',
-            topic:    '',
+            handler:   dummyResolveHandler,
+            queue:     '',
+            exchange:  '',
+            topic:     '',
+            duplicate: true,
           },
         ]);
         return Promise.resolve();
@@ -87,10 +88,11 @@ describe('Subscribe', () => {
         expect(qRegisterStub.callCount).to.be.equal(1);
         expect(qRegisterStub.getCall(0).args).to.be.eql([
           {
-            handler: dummyResolveHandler,
-            queue:   dummyQueue,
-            topic:   dummyTopic,
+            handler:   dummyResolveHandler,
+            queue:     dummyQueue,
+            topic:     dummyTopic,
             exchange,
+            duplicate: true,
           },
         ]);
         return Promise.resolve();
