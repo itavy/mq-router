@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@itavy/ierror": "^1.1.2",
-    "@itavy/mq-connector": "git+ssh://git@github.com:itavy/mq-connector.git",
+    "@itavy/mq-connector": "https://github.com/devel-pa/mq-connector.git",
     "@itavy/mq-structure": "^0.0.1",
     "debug": "~3.1.0",
     "semver": "~5.4.1",

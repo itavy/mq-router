@@ -207,4 +207,33 @@ describe('Subscribe', () => {
         });
       });
   });
+
+  it('Should successfully unsubscribe from channel', () => {
+    const cTagTest = randomId(30);
+    sandbox.stub(testRouter.connector, 'subscribe')
+      .resolves({
+        queue:       dummyQueue,
+        consumerTag: cTagTest,
+      });
+
+    sandbox.stub(testRouter.connector, 'unsubscribe')
+      .resolves(true);
+
+    return testRouter.subscribe({
+      handler: dummyResolveHandler,
+      queue:   dummyQueue,
+      topic:   dummyTopic,
+      exchange,
+    })
+      .should.be.fulfilled
+      .then(() => testRouter.unsubscribe({
+        queue: dummyQueue,
+        topic: dummyTopic,
+        exchange,
+      })
+        .should.be.fulfilled
+        .then((success) => {
+          expect(success).to.be.eql(true);
+        }));
+  });
 });

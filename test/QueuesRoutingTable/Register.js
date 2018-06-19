@@ -29,4 +29,17 @@ describe('Register', () => {
     expect(testTable.handlers[index]).to.be.eql(rec);
     done();
   });
+
+  it('Should increase count for same register provided info', (done) => {
+    const rec = getRecord();
+    const { index } = testTable.register({ ...rec, duplicate: false });
+    testTable.update({ index, queue: rec.queue, consumerTag: 'consumerTag' });
+    const { index: index1, consumerTag } = testTable.register({ ...rec, duplicate: false });
+    rec.consumerTag = null;
+
+    expect(index).to.be.eql(index1);
+    expect(testTable.handlers[index].count).to.be.eql(1);
+    expect(consumerTag).to.be.eql('consumerTag');
+    done();
+  });
 });
