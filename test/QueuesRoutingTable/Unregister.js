@@ -2,7 +2,14 @@
 
 const { QueuesRoutingTable } = require('../../');
 const { expect } = require('@itavy/test-utilities');
-const { addRecords, randomId, randomNumber } = require('./Fixtures');
+const {
+  addRecords,
+  randomId,
+  randomNumber,
+  dummyQueue,
+  dummyTopic,
+  exchange,
+} = require('./Fixtures');
 
 
 describe('Unregister', () => {
@@ -61,6 +68,16 @@ describe('Unregister', () => {
       index: records[pos].index,
     });
     expect(result).to.be.equal(true);
+    done();
+  });
+
+  it('Should return null if queue not registered', (done) => {
+    const result = testTable.getHandlerRefsByProperties({
+      queue: dummyQueue,
+      topic: dummyTopic,
+      exchange,
+    });
+    expect(result).to.be.equal(null);
     done();
   });
 });
