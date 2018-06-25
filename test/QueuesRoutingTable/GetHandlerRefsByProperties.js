@@ -35,6 +35,19 @@ describe('GetHandlerRefsByProperties', () => {
     done();
   });
 
+  it('Should return null if properties don\'t match', (done) => {
+    addRecords(testTable, 10);
+
+    const result = testTable.getHandlerRefsByProperties({
+      queue:    '',
+      exchange: '',
+      topic:    '',
+    });
+
+    expect(result).to.be.eql(null);
+    done();
+  });
+
   it('Should have no index when routing table is empty', (done) => {
     const exists = testTable.getHandlerRefsByProperties({
       queue:    '',

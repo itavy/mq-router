@@ -208,7 +208,7 @@ describe('Subscribe', () => {
       });
   });
 
-  it('Should successfully unsubscribe from channel', () => {
+  it('Should return same consumer tag on non duplication', () => {
     const cTagTest = randomId(30);
     sandbox.stub(testRouter.connector, 'subscribe')
       .resolves({
@@ -219,21 +219,36 @@ describe('Subscribe', () => {
     sandbox.stub(testRouter.connector, 'unsubscribe')
       .resolves(true);
 
+    const qrRegisterSpy = sandbox.spy(testRouter.queuesRoutingTable, 'register');
+
+    let savedIndex = null;
+    let savedTag = null;
+
     return testRouter.subscribe({
-      handler: dummyResolveHandler,
-      queue:   dummyQueue,
-      topic:   dummyTopic,
+      handler:   dummyResolveHandler,
+      queue:     dummyQueue,
+      topic:     dummyTopic,
       exchange,
+      duplicate: false,
     })
       .should.be.fulfilled
-      .then(() => testRouter.unsubscribe({
-        queue: dummyQueue,
-        topic: dummyTopic,
+      .then(() => {
+        const { index, consumerTag } = qrRegisterSpy.returnValues[0];
+        savedIndex = index;
+        savedTag = consumerTag;
+      })
+      .then(() => testRouter.subscribe({
+        handler:   dummyResolveHandler,
+        queue:     dummyQueue,
+        topic:     dummyTopic,
         exchange,
+        duplicate: false,
       })
         .should.be.fulfilled
-        .then((success) => {
-          expect(success).to.be.eql(true);
+        .then(() => {
+          const { index, consumerTag } = qrRegisterSpy.returnValues[0];
+          expect(index).to.be.eql(savedIndex);
+          expect(consumerTag).to.be.eql(savedTag);
         }));
   });
 });

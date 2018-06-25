@@ -44,7 +44,7 @@ describe('Unregister', () => {
     done();
   });
 
-  it('Should return false for unexistent index', (done) => {
+  it('Should return false for not registered index', (done) => {
     addRecords(testTable, 15);
     const result = testTable.unregister({
       index: randomId(),
