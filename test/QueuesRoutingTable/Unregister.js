@@ -44,7 +44,7 @@ describe('Unregister', () => {
     done();
   });
 
-  it('Should return false for unexistent index', (done) => {
+  it('Should return false for not registered index', (done) => {
     addRecords(testTable, 15);
     const result = testTable.unregister({
       index: randomId(),
@@ -61,6 +61,38 @@ describe('Unregister', () => {
       index: records[pos].index,
     });
     expect(result).to.be.equal(true);
+    done();
+  });
+
+  it('Should have same number of registered when not duplicates', (done) => {
+    const records = addRecords(testTable, 15);
+    const pos = randomNumber(15);
+
+    testTable.register({ ...records[pos].rec, duplicate: false });
+
+    testTable.unregister({
+      index: records[pos].index,
+    });
+
+    expect(Object.keys(testTable.handlers).length).to.be.equal(15);
+    done();
+  });
+
+  it('Should have decreased the registered handlers when duplicates are unregistered twice', (done) => {
+    const records = addRecords(testTable, 15);
+    const pos = randomNumber(15);
+
+    testTable.register({ ...records[pos].rec, duplicate: false });
+
+    testTable.unregister({
+      index: records[pos].index,
+    });
+
+    testTable.unregister({
+      index: records[pos].index,
+    });
+
+    expect(Object.keys(testTable.handlers).length).to.be.equal(14);
     done();
   });
 });
