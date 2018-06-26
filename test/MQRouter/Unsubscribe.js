@@ -32,8 +32,9 @@ describe('Unsubscribe', () => {
     sandbox.restore();
   });
 
-  it('Should successfully unsubscribe from channel', (done) => {
+  it('Should successfully unsubscribe from channel and return true', (done) => {
     const cTagTest = randomId(30);
+    const cIndexTest = randomId(30);
     sandbox.stub(testRouter.connector, 'subscribe')
       .resolves({
         queue:       dummyQueue,
@@ -41,7 +42,10 @@ describe('Unsubscribe', () => {
       });
 
     const qrHandlerRefsSpy = sandbox.stub(testRouter.queuesRoutingTable, 'getHandlerRefsByProperties')
-      .returns(cTagTest);
+      .returns({
+        index:       cIndexTest,
+        consumerTag: cTagTest,
+      });
 
     const connectorUnsubscribeSpy = sandbox.stub(testRouter.connector, 'unsubscribe')
       .resolves(true);
@@ -69,8 +73,36 @@ describe('Unsubscribe', () => {
         }));
   });
 
-  it('Should fail on unregistered queue', (done) => {
+  it('Should not unsubscribe on unregistered queue and return false', (done) => {
     sandbox.stub(testRouter.queuesRoutingTable, 'getHandlerRefsByProperties')
+      .returns({
+        index:       null,
+        consumerTag: null,
+      });
+
+    testRouter.unsubscribe({
+      queue: dummyQueue,
+      topic: dummyTopic,
+      exchange,
+    })
+      .should.be.fulfilled
+      .then((result) => {
+        expect(result).to.be.eql(false);
+        done();
+      });
+  });
+
+  it('Should fail on unregistered queue', (done) => {
+    const cTagTest = randomId(30);
+    const cIndexTest = randomId(30);
+
+    sandbox.stub(testRouter.queuesRoutingTable, 'getHandlerRefsByProperties')
+      .returns({
+        index:       cIndexTest,
+        consumerTag: cTagTest,
+      });
+
+    const connectorUnsubscribeSpy = sandbox.stub(testRouter.connector, 'unsubscribe')
       .throws(new Error('test'));
 
     testRouter.unsubscribe({
@@ -80,6 +112,7 @@ describe('Unsubscribe', () => {
     })
       .should.be.rejected
       .then((error) => {
+        expect(connectorUnsubscribeSpy.callCount).to.be.eql(1);
         expect(error.name).to.be.eql('MQ_ROUTER_UNSUBSCRIBE');
         expect(error.cause.message).to.be.eql('test');
         done();
