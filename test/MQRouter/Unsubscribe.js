@@ -32,7 +32,7 @@ describe('Unsubscribe', () => {
     sandbox.restore();
   });
 
-  it('Should successfully unsubscribe from channel', () => {
+  it('Should successfully unsubscribe from channel', (done) => {
     const cTagTest = randomId(30);
     sandbox.stub(testRouter.connector, 'subscribe')
       .resolves({
@@ -40,31 +40,40 @@ describe('Unsubscribe', () => {
         consumerTag: cTagTest,
       });
 
-    sandbox.stub(testRouter.connector, 'unsubscribe')
+    const qrHandlerRefsSpy = sandbox.stub(testRouter.queuesRoutingTable, 'getHandlerRefsByProperties')
+      .returns(cTagTest);
+
+    const connectorUnsubscribeSpy = sandbox.stub(testRouter.connector, 'unsubscribe')
       .resolves(true);
 
-    return testRouter.subscribe({
+    sandbox.stub(testRouter.queuesRoutingTable, 'unregister')
+      .returns(true);
+
+    testRouter.subscribe({
       handler: dummyResolveHandler,
       queue:   dummyQueue,
       topic:   dummyTopic,
       exchange,
     })
-      .should.be.fulfilled
       .then(() => testRouter.unsubscribe({
         queue: dummyQueue,
         topic: dummyTopic,
         exchange,
       })
         .should.be.fulfilled
-        .then((success) => {
-          expect(success).to.be.eql(true);
+        .then((result) => {
+          expect(qrHandlerRefsSpy.callCount).to.be.eql(1);
+          expect(connectorUnsubscribeSpy.callCount).to.be.eql(1);
+          expect(result).to.be.eql(true);
+          done();
         }));
   });
 
-  it('Should fail on unregistered queue', () => {
-    sandbox.stub(testRouter.queuesRoutingTable, 'getHandlerRefsByProperties').throws(new Error(''));
+  it('Should fail on unregistered queue', (done) => {
+    sandbox.stub(testRouter.queuesRoutingTable, 'getHandlerRefsByProperties')
+      .throws(new Error('test'));
 
-    return testRouter.unsubscribe({
+    testRouter.unsubscribe({
       queue: dummyQueue,
       topic: dummyTopic,
       exchange,
@@ -72,6 +81,8 @@ describe('Unsubscribe', () => {
       .should.be.rejected
       .then((error) => {
         expect(error.name).to.be.eql('MQ_ROUTER_UNSUBSCRIBE');
+        expect(error.cause.message).to.be.eql('test');
+        done();
       });
   });
 });
