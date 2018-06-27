@@ -2,7 +2,11 @@
 
 const { QueuesRoutingTable } = require('../../');
 const { expect } = require('@itavy/test-utilities');
-const { addRecords, randomId, randomNumber } = require('./Fixtures');
+const {
+  addRecords,
+  randomId,
+  randomNumber,
+} = require('./Fixtures');
 
 
 describe('Unregister', () => {
