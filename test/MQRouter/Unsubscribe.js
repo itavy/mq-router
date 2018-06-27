@@ -92,7 +92,7 @@ describe('Unsubscribe', () => {
       });
   });
 
-  it('Should fail on unregistered queue', (done) => {
+  it('Should fail on not subscribed queue', (done) => {
     const cTagTest = randomId(30);
     const cIndexTest = randomId(30);
 
