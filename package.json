@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@itavy/ierror": "^1.1.2",
-    "@itavy/mq-connector": "^0.0.2",
+    "@itavy/mq-connector": "^0.1.1",
     "@itavy/mq-structure": "^0.0.1",
     "debug": "~3.1.0",
     "semver": "~5.4.1",
