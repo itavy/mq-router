@@ -2,7 +2,7 @@
 
 const semver = require('semver');
 
-const minNodeVersion = '6.0.0';
+const minNodeVersion = '8.6.0';
 
 /**
  * check if min nodejs requirements are met
@@ -12,10 +12,7 @@ const getVersionModule = () => {
   if (semver.lt(process.version, minNodeVersion)) {
     throw Error(`Invalid node version for @itavy/mq-router, current: ${process.version}, min: ${minNodeVersion}`);
   }
-  if (semver.major(process.version) === semver.major(minNodeVersion)) {
-    // eslint-disable-next-line global-require
-    return require('./lib/v6x');
-  }
+
   // eslint-disable-next-line global-require
   return require('./lib/latest');
 };

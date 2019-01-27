@@ -1,7 +1,8 @@
 'use strict';
 
-const { QueuesRoutingTable } = require('../../');
 const { expect } = require('@itavy/test-utilities');
+
+const { QueuesRoutingTable } = require('../../');
 
 describe('Initialization', () => {
   let testTable = null;

@@ -1,9 +1,9 @@
 'use strict';
 
-const { QueuesRoutingTable } = require('../../');
 const { expect } = require('@itavy/test-utilities');
-const { randomId, addRecords, randomNumber } = require('./Fixtures');
 
+const { QueuesRoutingTable } = require('../../');
+const { randomId, addRecords, randomNumber } = require('./Fixtures');
 
 describe('GetHandlerByIndex', () => {
   let testTable = null;

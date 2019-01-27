@@ -1,13 +1,13 @@
 'use strict';
 
 const { expect, getSinonSandbox } = require('@itavy/test-utilities');
+const { EventEmitter } = require('events');
+
 const {
   MQRouter,
   RequestsRoutingTable,
   QueuesRoutingTable,
 } = require('../../');
-const { EventEmitter } = require('events');
-
 const {
   queue,
   mqURI,
