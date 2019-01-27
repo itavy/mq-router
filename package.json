@@ -1,6 +1,6 @@
 {
   "name": "@itavy/mq-router",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "MQ Router",
   "main": "index.js",
   "scripts": {
