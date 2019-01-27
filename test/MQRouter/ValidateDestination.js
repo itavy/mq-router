@@ -35,17 +35,19 @@ describe('ValidateDestination', () => {
       return Promise.resolve();
     }));
 
-  it('Should throw expected error for empty queue', () =>
-    testRouter.validateDestination({ queue: '' })
-      .should.be.rejected
-      .then((error) => {
-        expect(error).to.be.instanceof(IError);
-        expect(error).to.have.property('name', 'MQ_ROUTER_VALIDATE_DESTINATION');
-        return Promise.resolve();
-      }));
+  it('Should throw expected error for empty queue', () => testRouter.validateDestination({
+    queue: '',
+  })
+    .should.be.rejected
+    .then((error) => {
+      expect(error).to.be.instanceof(IError);
+      expect(error).to.have.property('name', 'MQ_ROUTER_VALIDATE_DESTINATION');
+      return Promise.resolve();
+    }));
 
-  it('Should resolve for valid queue', () =>
-    testRouter.validateDestination({ queue: 'testingQueue' })
-      .should.be.fulfilled
-      .then(() => Promise.resolve()));
+  it('Should resolve for valid queue', () => testRouter.validateDestination({
+    queue: 'testingQueue',
+  })
+    .should.be.fulfilled
+    .then(() => Promise.resolve()));
 });

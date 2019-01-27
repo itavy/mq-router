@@ -1,9 +1,9 @@
 'use strict';
 
-const { QueuesRoutingTable } = require('../../');
 const { expect } = require('@itavy/test-utilities');
-const { addRecords, randomId, randomNumber } = require('./Fixtures');
 
+const { QueuesRoutingTable } = require('../../');
+const { addRecords, randomId, randomNumber } = require('./Fixtures');
 
 describe('Unregister', () => {
   let testTable = null;

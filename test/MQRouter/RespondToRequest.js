@@ -33,18 +33,17 @@ describe('RespondToRequest', () => {
     sandbox.restore();
   });
 
-  it('Should resolve with true for null message', () =>
-    testRouter.respondToRequest({
-      message: null,
-      version: MQMessageV1,
-      replyTo,
-      destination,
-    })
-      .should.be.fulfilled
-      .then((response) => {
-        expect(response).to.be.equal(true);
-        return Promise.resolve();
-      }));
+  it('Should resolve with true for null message', () => testRouter.respondToRequest({
+    message: null,
+    version: MQMessageV1,
+    replyTo,
+    destination,
+  })
+    .should.be.fulfilled
+    .then((response) => {
+      expect(response).to.be.equal(true);
+      return Promise.resolve();
+    }));
 
   it('Should forward request to sendMQMsg for non null message', () => {
     const sendMQMsgStub = sandbox.stub(testRouter, 'sendMQMsg').rejects(testingError);

@@ -1,8 +1,9 @@
 'use strict';
 
-const { expect, getSinonSandbox } = require('@itavy/test-utilities');
-const { MQRouter } = require('../../');
 const { IError } = require('@itavy/ierror');
+const { expect, getSinonSandbox } = require('@itavy/test-utilities');
+
+const { MQRouter } = require('../../');
 const {
   queue,
   mqURI,
@@ -139,13 +140,12 @@ describe('CheckIfIsSelfSubscribedForResponses', () => {
   it('Should resolve if it is allready subscribed', () => {
     const subscribeStub = sandbox.stub(testRouter, 'subscribe').resolves({ queue: dummyTopic });
     return testRouter.checkIfIsSelfSubscribedForResponses()
-      .then(() =>
-        testRouter.checkIfIsSelfSubscribedForResponses()
-          .should.be.fulfilled
-          .then(() => {
-            expect(subscribeStub.callCount).to.be.equal(1);
-            return Promise.resolve();
-          }));
+      .then(() => testRouter.checkIfIsSelfSubscribedForResponses()
+        .should.be.fulfilled
+        .then(() => {
+          expect(subscribeStub.callCount).to.be.equal(1);
+          return Promise.resolve();
+        }));
   });
 
   it('Should resolve if it is a self subscription pending', () => {

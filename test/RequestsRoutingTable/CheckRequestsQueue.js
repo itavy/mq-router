@@ -1,9 +1,10 @@
 'use strict';
 
-const { RequestsRoutingTable } = require('../../');
 const { EventEmitter } = require('events');
 const { randomBytes } = require('crypto');
 const { expect, getSinonSandbox } = require('@itavy/test-utilities');
+
+const { RequestsRoutingTable } = require('../../');
 
 describe('Initialization', () => {
   const sandbox = getSinonSandbox();
