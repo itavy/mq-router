@@ -40,12 +40,12 @@
     "tap": "~12.4.0"
   },
   "dependencies": {
-    "@itavy/ierror": "^1.1.2",
-    "@itavy/mq-connector": "^0.1.1",
-    "@itavy/mq-structure": "^0.0.1",
-    "debug": "~3.1.0",
-    "semver": "~5.4.1",
-    "uuid": "~3.1.0"
+    "@itavy/ierror": "~1.2.0",
+    "@itavy/mq-connector": "~1.0.0",
+    "@itavy/mq-structure": "~0.0.2",
+    "debug": "~4.1.1",
+    "semver": "~5.6.0",
+    "uuid": "~3.3.2"
   },
   "nyc": {
     "all": true,
